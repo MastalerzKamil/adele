@@ -196,6 +196,15 @@ export const adeleInfo = {
   }
 }
 
+export const statisticsCharts = {
+  typography: {
+    fontFamily: typography.fontFamily,
+    size: typography.regularText,
+    weight: typography.regular,
+    color: tokens.colors.grayLight10,
+  }
+}
+
 export const sectionHeader = {
   typography: {
     fontFamily: typography.fontFamily,
