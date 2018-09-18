@@ -1,8 +1,11 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
+import StyledStatsContainer from './stats-container.styles';
 
-class StatsContainer extends Component {
-  constructor() {
-    super();
-  }
-}
+const StatsContainer = props => <StyledStatsContainer>{props.children}</StyledStatsContainer>;
+
+StatsContainer.propTypes = {
+  children: PropTypes.element.isRequired,
+};
+
+export { StatsContainer as default };
