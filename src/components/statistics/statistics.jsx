@@ -1,63 +1,77 @@
 import React from 'react';
 import { StyledSection, StyledHeader } from './statistics.styles';
-/*
+
 const DoughnutChart = require('react-chartjs').Doughnut;
 
-const chartData = [
-  {
-    value: 300,
-    color: '#F7464A',
-    highlight: '#FF5A5E',
-    label: 'Red',
-  },
-  {
-    value: 50,
-    color: '#46BFBD',
-    highlight: '#5AD3D1',
-    label: 'Green',
-  },
-  {
-    value: 100,
-    color: '#FDB45C',
-    highlight: '#FFC870',
-    label: 'Yellow',
-  },
-];
+class Statistics extends React.Component {
+  constructor() {
+    super();
 
-const chartOptions = {
-  // Boolean - Whether we should show a stroke on each segment
-  segmentShowStroke: true,
+    this.state = {
+      chartData: [],
+      chartOptions: {},
+    };
+  }
 
-  // String - The colour of each segment stroke
-  segmentStrokeColor: '#fff',
+  componentWillMount() {
+    this.setState({
+      chartData: [
+        {
+          value: 300,
+          color: '#F7464A',
+          highlight: '#FF5A5E',
+          label: 'Red',
+        },
+        {
+          value: 50,
+          color: '#46BFBD',
+          highlight: '#5AD3D1',
+          label: 'Green',
+        },
+        {
+          value: 100,
+          color: '#FDB45C',
+          highlight: '#FFC870',
+          label: 'Yellow',
+        },
+      ],
+      chartOptions: {
+        // Boolean - Whether we should show a stroke on each segment
+        segmentShowStroke: true,
 
-  // Number - The width of each segment stroke
-  segmentStrokeWidth: 2,
+        // String - The colour of each segment stroke
+        segmentStrokeColor: '#fff',
 
-  // Number - The percentage of the chart that we cut out of the middle
-  percentageInnerCutout: 50, // This is 0 for Pie charts
+        // Number - The width of each segment stroke
+        segmentStrokeWidth: 2,
 
-  // Number - Amount of animation steps
-  animationSteps: 100,
+        // Number - The percentage of the chart that we cut out of the middle
+        percentageInnerCutout: 50, // This is 0 for Pie charts
 
-  // String - Animation easing effect
-  animationEasing: 'easeOutBounce',
+        // Number - Amount of animation steps
+        animationSteps: 100,
 
-  // Boolean - Whether we animate the rotation of the Doughnut
-  animateRotate: true,
+        // String - Animation easing effect
+        animationEasing: 'easeOutBounce',
 
-  // Boolean - Whether we animate scaling the Doughnut from the centre
-  animateScale: false,
-  // String - A legend template
-};
-*/
+        // Boolean - Whether we animate the rotation of the Doughnut
+        animateRotate: true,
 
-const Statistics = () => {
-  return (
-    <StyledSection>
-      <StyledHeader>Statistics</StyledHeader>
-    </StyledSection>
-  );
-};
+        // Boolean - Whether we animate scaling the Doughnut from the centre
+        animateScale: false,
+        // String - A legend template
+      },
+    });
+  }
+
+  render() {
+    return (
+      <StyledSection>
+        <StyledHeader>Statistics</StyledHeader>
+        <DoughnutChart data={this.state.chartData} options={this.state.chartOptions} />
+      </StyledSection>
+    );
+  }
+}
 
 export { Statistics as default };
