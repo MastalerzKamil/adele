@@ -16,16 +16,17 @@ class Statistics extends React.Component {
     }
     /* loop throught all items to return */
     /* arrays of values for each property */
+    const categories = this.props.data.map((item) => {
+      const properties = Object.keys(item);
+      return properties;
+    });
     return this.props.data.map((item, index) => {
-      // const properties = Object.keys(item);
-
       return this.getValueForGivenIndexAndCategory('repository', index);
     });
   }
   // returns only value for given category and index
   getValueForGivenIndexAndCategory(category, index) {
     return this.props.data[index][category].data;
-
   }
   render() {
     const chartOptions = {
@@ -38,6 +39,8 @@ class Statistics extends React.Component {
       animateRotate: true,
       animateScale: false,
     };
+    this.setState({ parsedChartValues: this.getData() });
+    console.log(this.state);
     return (
       <StyledSection>
         <StyledHeader>Statistics</StyledHeader>

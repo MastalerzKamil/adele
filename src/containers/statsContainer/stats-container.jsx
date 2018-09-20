@@ -22,7 +22,6 @@ class StatsContainer extends React.Component {
       system.company.id = i;
       return system;
     });
-    console.log(fixedData);
 
     // const tmp = this.createLabelsArrayByCategory(fixedData);
     // console.log(fixedData);
@@ -78,7 +77,7 @@ class StatsContainer extends React.Component {
     */
 
     this.setState({
-      dataFromJson: headerArr,
+      dataFromJson: fixedData,
     });
   }
 
