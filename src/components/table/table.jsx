@@ -132,7 +132,6 @@ export default class Table extends Component {
     return this.props.data.map((item, i) => {
       /* Get list of all the properties for a given company / system (every one in a <tr>) */
       const properties = Object.keys(item);
-      // console.log(properties);
       const id = item.company.id;
       return (
         <tr id={id} key={item + id} title={`${item.company.data} - ${item.system.data}`}>

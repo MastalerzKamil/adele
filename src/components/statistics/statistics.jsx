@@ -4,22 +4,13 @@ import { StyledSection, StyledHeader, StyledChartTitle, StyledChartDiv, StyledCh
 const DoughnutChart = require('react-chartjs').Doughnut;
 
 class Statistics extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      parsedChartValues: [],
-    };
-  }
   getData() {
     if (this.props.data.length === 0) {
       console.log('No data in props');
     }
     /* loop throught all items to return */
     /* arrays of values for each property */
-    const categories = this.props.data.map((item) => {
-      const properties = Object.keys(item);
-      return properties;
-    });
+    const categories = Object.keys(this.props.data[0]);
     return categories.map((item, index) => {
       return this.getValueForGivenIndexAndCategory('repository', index);
     });
