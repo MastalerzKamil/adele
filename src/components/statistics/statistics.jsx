@@ -20,7 +20,7 @@ class Statistics extends React.Component {
       const properties = Object.keys(item);
       return properties;
     });
-    return this.props.data.map((item, index) => {
+    return categories.map((item, index) => {
       return this.getValueForGivenIndexAndCategory('repository', index);
     });
   }
@@ -39,8 +39,7 @@ class Statistics extends React.Component {
       animateRotate: true,
       animateScale: false,
     };
-    this.setState({ parsedChartValues: this.getData() });
-    console.log(this.state);
+    console.log(this.getData());
     return (
       <StyledSection>
         <StyledHeader>Statistics</StyledHeader>
