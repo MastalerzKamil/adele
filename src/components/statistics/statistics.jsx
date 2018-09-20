@@ -11,8 +11,10 @@ class Statistics extends React.Component {
     /* loop throught all items to return */
     /* arrays of values for each property */
     const categories = Object.keys(this.props.data[0]);
-    return categories.map((item, index) => {
-      return this.getValueForGivenIndexAndCategory('repository', index);
+    return categories.map((categoryValue) => {
+      return this.props.data.map((item, dataIndex) => {
+        return this.getValueForGivenIndexAndCategory(categoryValue, dataIndex);
+      });
     });
   }
   // returns only value for given category and index
