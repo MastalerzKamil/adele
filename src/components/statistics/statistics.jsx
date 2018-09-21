@@ -7,8 +7,9 @@ class Statistics extends React.Component {
   getData() {
     if (this.props.data.length === 0) {
       console.log('No data in props');
+      return null;
     }
-    /* loop throught all items to return */
+    /* loop throught all items in all properties to return */
     /* arrays of values for each property */
     const categories = Object.keys(this.props.data[0]);
     return categories.map((categoryValue) => {
@@ -20,6 +21,14 @@ class Statistics extends React.Component {
   // returns only value for given category and index
   getValueForGivenIndexAndCategory(category, index) {
     return this.props.data[index][category].data;
+  }
+  makeArrayFlatten(array) {
+    return array.reduce((currentElement, nextElement) => currentElement.concat(nextElement), []);
+  }
+  prepareDataToChart() {
+    const dataFromJson = this.getData();
+    const flattenData = this.makeArrayFlatten(dataFromJson);
+
   }
   render() {
     const chartOptions = {
