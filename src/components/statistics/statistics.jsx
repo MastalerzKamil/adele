@@ -24,28 +24,35 @@ class Statistics extends React.Component {
     return this.props.data[index][category].data;
   }
   makeArrayFlatten(array) {
-    return array.reduce((currentElement, nextElement) => currentElement.concat(nextElement), []);
+    return array.reduce((prevElement, nextElement) => prevElement.concat(nextElement), []);
   }
   prepareDataToChart() {
     const dataFromJson = this.getData();
-    console.log(dataFromJson);
     const flattenData = dataFromJson.map((categoryArray) => {
       return this.makeArrayFlatten(categoryArray);
     });
-    console.log(flattenData);
     const uniqueDataAmount = flattenData.map((element) => {
       return element.filter((v, i) => {
         return i === element.lastIndexOf(v);
       }).length;
     });
-    console.log(uniqueDataAmount);
     const chartColors = uniqueDataAmount.map((colorsAmount) => {
       // returns array of colors for each propoerty
       return Array.from({ length: colorsAmount }, () => randomColor());
     });
-    console.log(chartColors);
+    const labelsWithValuesToChart = flattenData.map((element) => {
+      return element.reduce((acc, val) => {
+        acc[val] = acc[val] === undefined ? 1 : acc[val] += 1;
+        return acc;
+      }, {});
+    });
+    const labelsToChart = labelsWithValuesToChart.map((label) => {
+      return Object.keys(label);
+    });
+    console.log(labelsToChart);
   }
   render() {
+    /*
     const chartOptions = {
       segmentShowStroke: true,
       segmentStrokeColor: '#fff',
@@ -56,6 +63,7 @@ class Statistics extends React.Component {
       animateRotate: true,
       animateScale: false,
     };
+    */
     this.prepareDataToChart();
     return (
       <StyledSection>
@@ -63,6 +71,7 @@ class Statistics extends React.Component {
         <StyledChartsAllCharts>
           <StyledChartDiv>
             <StyledChartTitle>Repository</StyledChartTitle>
+            <DoughnutChart data={this.props.chartData} options={this.props.chartOptions} />
           </StyledChartDiv>
         </StyledChartsAllCharts>
       </StyledSection>
