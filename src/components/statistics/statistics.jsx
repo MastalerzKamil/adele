@@ -2,6 +2,7 @@ import React from 'react';
 import { StyledSection, StyledHeader, StyledChartTitle, StyledChartDiv, StyledChartsAllCharts } from './statistics.styles';
 
 const DoughnutChart = require('react-chartjs').Doughnut;
+const randomColor = require('randomcolor');
 
 class Statistics extends React.Component {
   getData() {
@@ -27,8 +28,22 @@ class Statistics extends React.Component {
   }
   prepareDataToChart() {
     const dataFromJson = this.getData();
-    const flattenData = this.makeArrayFlatten(dataFromJson);
-
+    console.log(dataFromJson);
+    const flattenData = dataFromJson.map((categoryArray) => {
+      return this.makeArrayFlatten(categoryArray);
+    });
+    console.log(flattenData);
+    const uniqueDataAmount = flattenData.map((element) => {
+      return element.filter((v, i) => {
+        return i === element.lastIndexOf(v);
+      }).length;
+    });
+    console.log(uniqueDataAmount);
+    const chartColors = uniqueDataAmount.map((colorsAmount) => {
+      // returns array of colors for each propoerty
+      return Array.from({ length: colorsAmount }, () => randomColor());
+    });
+    console.log(chartColors);
   }
   render() {
     const chartOptions = {
@@ -41,7 +56,7 @@ class Statistics extends React.Component {
       animateRotate: true,
       animateScale: false,
     };
-    console.log(this.getData());
+    this.prepareDataToChart();
     return (
       <StyledSection>
         <StyledHeader>Statistics</StyledHeader>
