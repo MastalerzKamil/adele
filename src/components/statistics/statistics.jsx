@@ -70,7 +70,6 @@ class Statistics extends React.Component {
   render() {
     const chartsData = this.prepareDataToChart();
     const properties = this.props.properties;
-    console.log(chartsData);
     return (
       <StyledSection>
         <StyledHeader>Statistics</StyledHeader>
