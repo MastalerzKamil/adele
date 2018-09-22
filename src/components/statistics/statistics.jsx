@@ -24,22 +24,6 @@ class Statistics extends React.Component {
   getValueForGivenIndexAndCategory(category, index) {
     return this.props.data[index][category].data;
   }
-  getAllChartsData(properties, values, colors, labels) {
-    return labels.map((label, chartId) => {
-      return this.getSingleChartData(chartId, values, colors, labels);
-    }).slice(2);
-  }
-  getSingleChartData(chartIndex, chartValues, chartColors, chartLabels) {
-    console.log(chartLabels);
-    return chartLabels.map((label, labelId) => {
-      return this.getSingleLabelData(label, chartValues, chartColors, labelId, chartIndex);
-    });
-  }
-  getSingleLabelData(label, values, colors, labelIndex, chartIndex) {
-    const value = values[chartIndex][labelIndex];
-    const color = colors[labelIndex][labelIndex];
-    return { value, color, label };
-  }
   makeArrayFlatten(array) {
     return array.reduce((prevElement, nextElement) => prevElement.concat(nextElement), []);
   }
@@ -48,25 +32,20 @@ class Statistics extends React.Component {
     const flattenData = dataFromJson.map((categoryArray) => {
       return this.makeArrayFlatten(categoryArray);
     });
-    const uniqueDataAmount = flattenData.map((element) => {
-      return element.filter((v, i) => {
-        return i === element.lastIndexOf(v);
-      }).length;
-    });
-    const chartColors = uniqueDataAmount.map((colorsAmount) => {
-      // returns array of colors for each propoerty
-      return Array.from({ length: colorsAmount }, () => randomColor());
-    });
-    const labelsWithValuesToChart = flattenData.map((element) => {
-      return element.reduce((acc, val) => {
+    const preparedData = flattenData.map((categoryElement) => {
+      const labelsWithValuesToChart = categoryElement.reduce((acc, val) => {
         acc[val] = acc[val] === undefined ? 1 : acc[val] += 1;
         return acc;
       }, {});
+      const chartValues = Object.values(labelsWithValuesToChart);
+      const chartLabels = Object.keys(labelsWithValuesToChart);
+      return chartValues.map((value, valueId) => {
+        const color = randomColor();
+        const label = chartLabels[valueId];
+        return { value, color, label };
+      });
     });
-    const labelsToChart = labelsWithValuesToChart.map((label) => {
-      return Object.keys(label);
-    }).slice(2);
-    return { labelsToChart, labelsWithValuesToChart, chartColors };
+    return preparedData;
   }
   render() {
     const chartOptions = {
@@ -79,9 +58,7 @@ class Statistics extends React.Component {
       animateRotate: true,
       animateScale: false,
     };
-    const { labelsToChart, labelsWithValuesToChart, chartColors } = this.prepareDataToChart();
-    const properties = Object.keys(this.props.data[0]);
-    const chartData = this.getAllChartsData(properties, labelsWithValuesToChart, chartColors, labelsToChart);
+    const chartData = this.prepareDataToChart();
     console.log(chartData);
     return (
       <StyledSection>
@@ -89,7 +66,6 @@ class Statistics extends React.Component {
         <StyledChartsAllCharts>
           <StyledChartDiv>
             <StyledChartTitle>Repository</StyledChartTitle>
-            <DoughnutChart data={this.props.chartData} options={this.props.chartOptions} />
           </StyledChartDiv>
         </StyledChartsAllCharts>
       </StyledSection>
