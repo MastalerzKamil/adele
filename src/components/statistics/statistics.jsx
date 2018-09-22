@@ -44,10 +44,10 @@ class Statistics extends React.Component {
         const label = chartLabels[valueId];
         return { value, color, label };
       });
-    });
+    }).slice(2);
     return preparedData;
   }
-  render() {
+  renderCharts(chartsData, properties) {
     const chartOptions = {
       segmentShowStroke: true,
       segmentStrokeColor: '#fff',
@@ -58,15 +58,24 @@ class Statistics extends React.Component {
       animateRotate: true,
       animateScale: false,
     };
-    const chartData = this.prepareDataToChart();
-    console.log(chartData);
+    return chartsData.map((singleChartData, singleChartDataId) => {
+      return (
+        <StyledChartDiv>
+          <StyledChartTitle>{properties[singleChartDataId]}</StyledChartTitle>
+          <DoughnutChart data={singleChartData} options={chartOptions} />
+        </StyledChartDiv>
+      );
+    });
+  }
+  render() {
+    const chartsData = this.prepareDataToChart();
+    const properties = this.props.properties;
+    console.log(chartsData);
     return (
       <StyledSection>
         <StyledHeader>Statistics</StyledHeader>
         <StyledChartsAllCharts>
-          <StyledChartDiv>
-            <StyledChartTitle>Repository</StyledChartTitle>
-          </StyledChartDiv>
+          {this.renderCharts(chartsData, properties)}
         </StyledChartsAllCharts>
       </StyledSection>
     );

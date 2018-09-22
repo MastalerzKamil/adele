@@ -10,12 +10,12 @@ class StatsContainer extends React.Component {
 
     this.state = {
       dataFromJson: [],
-      chartOptions: {},
+      properties: {},
     };
   }
 
   componentWillMount() {
-    const headerArr = Object.keys(data[0]);
+    const headerArr = Object.keys(data[0]).slice(2);
     const fixedData = data.map((item, i) => {
       const system = item;
       system.company.id = i;
@@ -78,6 +78,7 @@ class StatsContainer extends React.Component {
 
     this.setState({
       dataFromJson: fixedData,
+      properties: headerArr,
     });
   }
 
@@ -85,7 +86,7 @@ class StatsContainer extends React.Component {
     return (
       <Statistics
         data={this.state.dataFromJson}
-        chartOptions={this.state.chartOptions}
+        properties={this.state.properties}
       />
     );
   }
