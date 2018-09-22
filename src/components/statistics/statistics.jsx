@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { StyledSection, StyledHeader, StyledChartTitle, StyledChartDiv, StyledChartsAllCharts } from './statistics.styles';
 
 const DoughnutChart = require('react-chartjs').Doughnut;
@@ -22,6 +23,22 @@ class Statistics extends React.Component {
   // returns only value for given category and index
   getValueForGivenIndexAndCategory(category, index) {
     return this.props.data[index][category].data;
+  }
+  getAllChartsData(properties, values, colors, labels) {
+    return labels.map((label, chartId) => {
+      return this.getSingleChartData(chartId, values, colors, labels);
+    }).slice(2);
+  }
+  getSingleChartData(chartIndex, chartValues, chartColors, chartLabels) {
+    console.log(chartLabels);
+    return chartLabels.map((label, labelId) => {
+      return this.getSingleLabelData(label, chartValues, chartColors, labelId, chartIndex);
+    });
+  }
+  getSingleLabelData(label, values, colors, labelIndex, chartIndex) {
+    const value = values[chartIndex][labelIndex];
+    const color = colors[labelIndex][labelIndex];
+    return { value, color, label };
   }
   makeArrayFlatten(array) {
     return array.reduce((prevElement, nextElement) => prevElement.concat(nextElement), []);
@@ -48,11 +65,10 @@ class Statistics extends React.Component {
     });
     const labelsToChart = labelsWithValuesToChart.map((label) => {
       return Object.keys(label);
-    });
-    console.log(labelsToChart);
+    }).slice(2);
+    return { labelsToChart, labelsWithValuesToChart, chartColors };
   }
   render() {
-    /*
     const chartOptions = {
       segmentShowStroke: true,
       segmentStrokeColor: '#fff',
@@ -63,8 +79,10 @@ class Statistics extends React.Component {
       animateRotate: true,
       animateScale: false,
     };
-    */
-    this.prepareDataToChart();
+    const { labelsToChart, labelsWithValuesToChart, chartColors } = this.prepareDataToChart();
+    const properties = Object.keys(this.props.data[0]);
+    const chartData = this.getAllChartsData(properties, labelsWithValuesToChart, chartColors, labelsToChart);
+    console.log(chartData);
     return (
       <StyledSection>
         <StyledHeader>Statistics</StyledHeader>
@@ -78,5 +96,9 @@ class Statistics extends React.Component {
     );
   }
 }
+
+Statistics.propTypes = {
+  data: PropTypes.array,
+};
 
 export { Statistics as default };

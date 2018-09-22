@@ -10,7 +10,6 @@ class StatsContainer extends React.Component {
 
     this.state = {
       dataFromJson: [],
-      chartData: [],
       chartOptions: {},
     };
   }
