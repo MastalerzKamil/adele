@@ -25,7 +25,8 @@ const StyledChartDiv = styled.div`
 const StyledChartsAllCharts = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: space around;
+  justify-content: space-around;
+  flex-wrap: wrap
 `;
 
 const StyledHeader = styled.h2`
