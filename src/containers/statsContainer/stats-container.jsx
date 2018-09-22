@@ -10,7 +10,6 @@ class StatsContainer extends React.Component {
 
     this.state = {
       dataFromJson: [],
-      chartData: [],
       chartOptions: {},
     };
   }
@@ -25,8 +24,9 @@ class StatsContainer extends React.Component {
 
     // const tmp = this.createLabelsArrayByCategory(fixedData);
     // console.log(fixedData);
-    /*
+
     this.setState({
+      /*
       chartData: [
         {
           value: 300,
@@ -73,8 +73,8 @@ class StatsContainer extends React.Component {
         animateScale: false,
         // String - A legend template
       },
+      */
     });
-    */
 
     this.setState({
       dataFromJson: fixedData,
@@ -85,7 +85,6 @@ class StatsContainer extends React.Component {
     return (
       <Statistics
         data={this.state.dataFromJson}
-        chartData={this.state.chartData}
         chartOptions={this.state.chartOptions}
       />
     );
