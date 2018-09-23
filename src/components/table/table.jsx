@@ -190,7 +190,7 @@ export default class Table extends Component {
             <div className="cell-wrapper">
               <p>{value}</p>
             </div>
-          )}
+            )}
         </td>
       );
     }
@@ -226,12 +226,12 @@ export default class Table extends Component {
                       {elem}
                     </StyledExternalLink>
                   </li>
-                  ))
+                ))
                 : array.map((elem, i) => (
                   <li title={`${titleForArray} ${array[i]}`} key={elem}>
                     {elem}
                   </li>
-                  ))}
+                ))}
             </ul>
           </div>
         </td>
