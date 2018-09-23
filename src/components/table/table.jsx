@@ -187,9 +187,9 @@ export default class Table extends Component {
           {url ? (
             <div className="cell-wrapper">{stringLink}</div>
           ) : (
-              <div className="cell-wrapper">
-                <p>{value}</p>
-              </div>
+            <div className="cell-wrapper">
+              <p>{value}</p>
+            </div>
             )}
         </td>
       );

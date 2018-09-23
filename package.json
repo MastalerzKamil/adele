@@ -10,7 +10,7 @@
   "scripts": {
     "test": "jest",
     "serve": "SET NODE_ENV=development && webpack-dev-server --open --no-info --progress --watch --hot",
-    "start": "NODE_ENV=production node server.js",
+    "start": "SET NODE_ENV=production && node server.js",
     "local": "webpack -p --env.local",
     "data-build": "node tools/data-builder.js",
     "data-rebuild": "node tools/data-rebuilder.js",

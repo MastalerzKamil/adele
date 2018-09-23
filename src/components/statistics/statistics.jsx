@@ -8,7 +8,6 @@ const randomColor = require('randomcolor');
 class Statistics extends React.Component {
   getData() {
     if (this.props.data.length === 0) {
-      console.log('No data in props');
       return null;
     }
     /* loop throught all items in all properties to return */
