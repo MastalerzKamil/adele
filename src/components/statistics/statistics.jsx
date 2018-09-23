@@ -44,7 +44,7 @@ class Statistics extends React.Component {
         const label = chartLabels[valueId];
         return { value, color, label };
       });
-    }).slice(2);
+    }).slice(2); // because we miss first 2 columns
     return preparedData;
   }
   renderCharts(chartsData, properties) {
@@ -82,7 +82,8 @@ class Statistics extends React.Component {
 }
 
 Statistics.propTypes = {
-  data: PropTypes.array,
+  data: PropTypes.array.isRequired,
+  properties: PropTypes.array.isRequired,
 };
 
 export { Statistics as default };
